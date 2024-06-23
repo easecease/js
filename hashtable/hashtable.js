@@ -21,16 +21,26 @@ class HashTable {
     }
     add(key,value){
         const hashIndex = hash(key, this.size);
-        if (!this.values[hashIndex]){
-            this.values [hashIndex] = new Array();
-        }
-        let box = new Box(key,value);
-        for(let i=0;i<box.length;i++){
-            if(!box.key==key){
+        const slot = this.values[hashIndex];
+        if (!slot){
+            this.values[hashIndex] = new Array();
+            let box = new Box(key,value);
+            this.values[hashIndex].push(box);
+            this.length++;
+        } else { 
+            let found=false;  
+            for(let i=0;i<slot.length;i++){
+                let box = slot[i];
+                if(box.key==key){
+                    box.value=value;
+                    found=true;
+                    break;
+                }
+            }
+            if(!found){
+                let box = new Box(key,value);
                 this.values[hashIndex].push(box);
                 this.length++;
-            } else {
-                box.value=value;
             }
         }
     }
@@ -93,3 +103,4 @@ ht.add("Francis", "621");
 ht.add("Millie", "767");
 
 console.log(ht.search("John"));
+console.log(ht.length);

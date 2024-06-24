@@ -52,7 +52,8 @@ class HashTable {
             if(box.key==key){
                 return box.value;
             }
-        }    
+        }
+        return "查無此資料!";    
     }
     remove(key){
         const index = hash(key, this.size);
@@ -64,6 +65,7 @@ class HashTable {
                 this.length--;
             }
         }
+        return "資料已清除!";
     }
 }
 
@@ -103,4 +105,6 @@ ht.add("Francis", "621");
 ht.add("Millie", "767");
 
 console.log(ht.search("John"));
-console.log(ht.length);
+console.log(ht.search("Ava"));
+console.log(ht.remove("John"));
+console.log(ht.search("John"));

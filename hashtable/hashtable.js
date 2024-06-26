@@ -6,8 +6,8 @@ function hash(key, size) {
     return hashCode % size;
 }
 
-class Box{
-    constructor(key,value){
+class Box {
+    constructor(key,value) {
         this.key=key;
         this.value=value;
     }
@@ -19,48 +19,48 @@ class HashTable {
       this.slots = new Array(this.size).fill(null);
       this.length = 0;
     }
-    add(key,value){
+    add(key,value) {
         const hashIndex = hash(key, this.size);
         const slot = this.slots[hashIndex];
-        if (!slot){
+        if (!slot) {
             this.slots[hashIndex] = new Array();
             let box = new Box(key,value);
             this.slots[hashIndex].push(box);
             this.length++;
         } else { 
             let found=false;  
-            for(let i=0;i<slot.length;i++){
+            for(let i=0;i<slot.length;i++) {
                 let box = slot[i];
-                if(box.key==key){
+                if (box.key==key) {
                     box.value=value;
                     found=true;
                     break;
                 }
             }
-            if(!found){
+            if (!found) {
                 let box = new Box(key,value);
                 this.slots[hashIndex].push(box);
                 this.length++;
             }
         }
     }
-    search(key){
+    search(key) {
         const hashIndex = hash(key, this.size);
         const slot = this.slots[hashIndex];
-        for(let i=0;i<slot.length;i++){
+        for (let i=0;i<slot.length;i++) {
             let box = slot[i];
-            if(box.key==key){
+            if (box.key==key) {
                 return box.value;
             }
         }
         return "查無此資料!";    
     }
-    remove(key){
+    remove(key) {
         const hashIndex = hash(key, this.size);
         const slot = this.slots[hashIndex];
-        for(let i=0;i<slot.length;i++){
+        for (let i=0;i<slot.length;i++) {
             let box = slot[i];
-            if(box.key==key){
+            if (box.key==key) {
                 slot.splice(i,1);
                 this.length--;
             }

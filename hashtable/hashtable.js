@@ -16,16 +16,16 @@ class Box{
 class HashTable {
     constructor() {
       this.size = 16;
-      this.values = new Array(this.size).fill(null);
+      this.slots = new Array(this.size).fill(null);
       this.length = 0;
     }
     add(key,value){
         const hashIndex = hash(key, this.size);
-        const slot = this.values[hashIndex];
+        const slot = this.slots[hashIndex];
         if (!slot){
-            this.values[hashIndex] = new Array();
+            this.slots[hashIndex] = new Array();
             let box = new Box(key,value);
-            this.values[hashIndex].push(box);
+            this.slots[hashIndex].push(box);
             this.length++;
         } else { 
             let found=false;  
@@ -39,14 +39,14 @@ class HashTable {
             }
             if(!found){
                 let box = new Box(key,value);
-                this.values[hashIndex].push(box);
+                this.slots[hashIndex].push(box);
                 this.length++;
             }
         }
     }
     search(key){
-        const index = hash(key, this.size);
-        const slot = this.values[index];
+        const hashIndex = hash(key, this.size);
+        const slot = this.slots[hashIndex];
         for(let i=0;i<slot.length;i++){
             let box = slot[i];
             if(box.key==key){
@@ -56,8 +56,8 @@ class HashTable {
         return "查無此資料!";    
     }
     remove(key){
-        const index = hash(key, this.size);
-        const slot = this.values[index];
+        const hashIndex = hash(key, this.size);
+        const slot = this.slots[hashIndex];
         for(let i=0;i<slot.length;i++){
             let box = slot[i];
             if(box.key==key){

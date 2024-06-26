@@ -13,7 +13,7 @@ function quicksort(arr) {
   let pivot = arr[0];
   for (i = 1; i < arr.length; i++) {
 		let num = arr[i];
-    if (num < pivot){
+    if (num < pivot) {
     	left.push(num);
     } else {
     	right.push(num);
@@ -37,9 +37,9 @@ function binarysearch(arr,goal) {
     	return ("搜尋選項在第" + (mid + 1) + "項");
     }
   }
-  return("無搜尋資料");
+  return ("無搜尋資料");
 }
 
-prompt.get(['number'],function(err,result){
+prompt.get(['number'],function(err,result) {
     console.log(binarysearch(quicksort(data),result.number));
 });

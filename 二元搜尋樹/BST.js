@@ -40,27 +40,39 @@ class BinarySearchTree {
     }
 
     deleteNode(node, data) {
-        if (node === null) {
-            return null;
-        } else if (data < node.data) {
-            node.left = this.deleteNode(node.left, data);
-            return node;
-        } else if (data > node.data) {
-            node.right = this.deleteNode(node.right, data);
-            return node;
-        } else {
-            if(node.left === null && node.right === null){
-                node = null;
-                return node;
-            } else if (node.left === null) {
-                node = node.right;
-                return node;
-            } else if (node.right === null) {
-                node = node.left;
-                return node;
-            }
-
+      if (node === null) {
+          return null;
+      } else if (data < node.data) {
+          node.left = this.deleteNode(node.left, data);
+          return node;
+      } else if (data > node.data) {
+          node.right = this.deleteNode(node.right, data);
+          return node;
+      } else {
+          if (node.left === null && node.right === null) {
+              node = null;
+              return node;
+          } else if (node.left === null) {
+              node = node.right;
+              return node;
+          } else if (node.right === null) {
+              node = node.left;
+              return node;
+          }
+          let storage = this.max(node.left);
+          node.data = storage.data;
+          node.left = this.deleteNode(node.left, storage.data);
+          return node;
         }
+    }
+    max (node = this.branch) {
+      if (node) {
+        while(node && node.right !== null) {
+          node = node.right;
+        }
+        return node.data;
+      }
+      return null;
     }
 
     preOrderTraversal() {

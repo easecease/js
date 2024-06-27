@@ -6,8 +6,8 @@ function radix(arr) {
     for (let i = 0; i < maxdigits; i++) {
         let buckets = Array.from({length:10}, () => [])
         for (let j = 0; j < arr.length; j++) {
-            let radix = math.floor(arr[j] / math.pow (10,i) % 10);
-            buckets[radix] = push(arr[j]);
+            let radix = Math.floor(arr[j] / Math.pow (10,i) % 10);
+            buckets[radix].push(arr[j]);
             }
             arr = [].concat(...buckets);
         }

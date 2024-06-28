@@ -1,47 +1,57 @@
 class Graph {
     constructor() {
-        this.AdjacencyMatrix = new Array();
+        this.adjacencymatrix = {};
     }
     addVertex(vertex) {
-        if (!this.AdjacencyMatrix[vertex]) {
-            this.AdjacencyMatrix[vertex] = [];
+        if (!this.adjacencymatrix[vertex]) {
+            this.adjacencymatrix[vertex] = [];
         } else {
             return '已有此點';
         }
     }
     addEdge(vertex1,vertex2) {
-        if (this.AdjacencyMatrix[vertex1]){
-            if (this.AdjacencyMatrix[vertex2]) {
-                this.AdjacencyMatrix[vertex1].push(vertex2);
-                this.AdjacencyMatrix[vertex2].push(vertex1);
+        if (this.adjacencymatrix[vertex1]){
+            if (this.adjacencymatrix[vertex2]) {
+                this.adjacencymatrix[vertex1].push(vertex2);
+                this.adjacencymatrix[vertex2].push(vertex1);
             }
         }
     } 
     removeVertex(vertex) {
-        if (this.AdjacencyMatrix[vertex]) {
-            this.AdjacencyMatrix[vertex].forEach (function(item) {
+        if (this.adjacencymatrix[vertex]) {
+            this.adjacencymatrix[vertex].forEach (function(item) {
                 this.removeEdge (vertex,item);
-                delete this.AdjacencyMatrix[vertex];
+                delete this.adjacencymatrix[vertex];
             });
         } else {
             return "未有此點";
         }
     }
     removeEdge(vertex1,vertex2) {
-        if (this.AdjacencyMatrix[vertex1]) {
-            if (this.AdjacencyMatrix[vertex2]) {
-                this.AdjacencyMatrix[vertex1] = this.AdjacencyMatrix[vertex1].filter (
+        if (this.adjacencymatrix[vertex1]) {
+            if (this.adjacencymatrix[vertex2]) {
+                this.adjacencymatrix[vertex1] = this.adjacencymatrix[vertex1].filter (
                     (vertex) => vertex !== vertex2 
                 )
-                this.AdjacencyMatrix[vertex2] = this.AdjacencyMatrix[vertex2].filter (
+                this.adjacencymatrix[vertex2] = this.adjacencymatrix[vertex2].filter (
                     (vertex) => vertex !== vertex1
                 )
+            } else {
+                return "未有此邊";
             }
         }
     }
     printGraph(){
-        console.log(this.AdjacencyMatrix);
-    }  
+        console.log(this.adjacencymatrix);
+    }
+    printVertex(){
+        for (let vertex in this.adjacencymatrix){
+            let array = this.adjacencymatrix[vertex];
+            let x = array.join("' , '");
+            let result = vertex + " : " + " [ '" + x + "' ] ";
+            console.log(result);
+        };
+    } 
 }
 
 let graph = new Graph();
@@ -61,4 +71,5 @@ graph.addEdge('D', 'E');
 graph.addEdge('E', 'F');
 graph.addEdge('E', 'C');
 graph.printGraph();
+graph.printVertex();
 
